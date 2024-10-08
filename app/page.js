@@ -1,101 +1,60 @@
-import Image from "next/image";
+"use client";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import { ArrowRight } from "lucide-react"
+
+    const handleSignOut = async () => {
+      await signOut({ redirect: true, callbackUrl: "/" });
+    };
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { data: session } = useSession();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  return !session ? (
+    <div className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Background with logos */}
+      
+
+      {/* Hero content */}
+      <div className="relative z-10 text-center">
+        <h1 className="text-2xl md:text-6xl font-bold text-primary mb-4">
+          Welcome to this basic Authentification project using Next Auth 
+        </h1>
+        <p className="text-xl md:text-2xl text-muted-foreground mb-7">
+          Powered by React, Next.js, MongoDB, and Node.js and  Next Js
+        </p>
+        <Link className="bg-[#61dafb] hover:bg-[#4fa8c7] text-black font-semibold py-2 px-4 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#61dafb] focus:ring-opacity-50 mt-4" href="/login">Click here To Login</Link>
+      
+      </div>
     </div>
+  ) : (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Next.js-inspired background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwMCAwQzQ0Ljc3MTUgMCAwIDQ0Ljc3MTUgMCAxMDBDMCAxNTUuMjI4IDQ0Ljc3MTUgMjAwIDEwMCAyMDBDMTU1LjIyOCAyMDAgMjAwIDE1NS4yMjggMjAwIDEwMEMyMDAgNDQuNzcxNSAxNTUuMjI4IDAgMTAwIDBaTTEwMCAxODVDNTMuMDU1IDE4NSAxNSAxNDYuOTQ1IDE1IDEwMEMxNSA1My4wNTUgNTMuMDU1IDE1IDEwMCAxNUMxNDYuOTQ1IDE1IDE4NSA1My4wNTUgMTg1IDEwMEMxODUgMTQ2Ljk0NSAxNDYuOTQ1IDE4NSAxMDAgMTg1WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyKSIvPgo8L2c+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXIiIHgxPSIwIiB5MT0iMCIgeDI9IjIwMCIgeTI9IjIwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMDBEQkU5Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZGMDBGRiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+')] bg-repeat opacity-10" />
+      </div>
+
+      {/* Hero content */}
+      <div className="relative z-10 text-center px-4">
+      <button
+      onClick={handleSignOut}
+      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Sign Out
+    </button>
+        <h1 className="text-6xl md:text-8xl font-bold text-white mb-6">
+          Welcome
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-300 mb-8">
+          to the Next.js-powered future of web development
+        </p>
+        <p className=" text-white  transition-colors duration-300 w-">
+          Welcome 
+        </p>
+      </div>
+    </div>
+
+
   );
 }
